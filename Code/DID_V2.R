@@ -3,6 +3,7 @@ library(readr)
 library(dplyr)
 library(ineq)
 library(stargazer)
+library(AER)
 
 
 treatment_group <- read_csv("~/PHD/DB MINEDUC/Clean_MINEDUC/treatment_group.csv")
@@ -43,7 +44,6 @@ individuos$lh_tot_labour_income_pc <- ifelse(individuos$h_tot_labour_income_pc <
 
 individuos$lnhousehold.y <- ifelse(individuos$nhousehold.y < 1, 0 ,log(individuos$nhousehold.y))
 
-summary(individuos$lformal_per_house)
 
 remove(Enemdu)
 
@@ -53,8 +53,6 @@ desc_stat <- individuos %>%
   group_by(period) %>%
   summarise_at(vars(employment, university, migrant),
                mean)
-
-remove(desc_stat)
 
 empleados <- individuos[individuos$employment == 1,]
 
@@ -91,6 +89,9 @@ dev.off()
 
 remove(desc_stat)
 remove(empleados)
+remove(migrantes)
+remove(desc_stat_inf)
+remove(universitarios)
 
 #################################  DID  #########################################
 
@@ -119,7 +120,7 @@ stargazer(reg_did_ind3, type = "text")
 
 ################################ Control Variables #############################
 
-reg_did_ind_c1 <- lm(university ~ policy*treat_group + age + sex + indigenous + afro + rural   + h_tot_labour_income_pc + nhousehold.y + as.factor(period) + as.factor(province), data = individuos)
+reg_did_ind_c1 <- lm(university ~ policy*treat_group + age + sex + indigenous + afro + rural + lformal_per_house  + lh_tot_labour_income_pc + nhousehold.y + as.factor(period) + as.factor(province), data = individuos)
 
 stargazer(reg_did_ind_c1, type = "text")
 
