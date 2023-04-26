@@ -162,18 +162,30 @@ stargazer(reg_did_ind_c3, type = "text")
 #In order to check the mechanisms we will see the effect of the policy on the variable migrant
 #migrant is equal to one if the individual was born in a different plce
 
-migrant_did <- lm(migrant ~ policy*treat_group +
+reg_did_ind_c4 <- lm(migrant ~ policy*treat_group +
                     age + sex + indigenous + afro + rural  + formal_per_house + h_tot_labour_income_pc +
                     h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                     as.factor(period) + as.factor(province),
                   data = individuos)
 
-stargazer(migrant_did, type = "text")
+stargazer(reg_did_ind_c4, type = "text")
 
 
-stargazer(coeftest(reg_did_ind_c1, vcov=vcovHC),coeftest(reg_did_ind_c3, vcov=vcovHC), coeftest(reg_did_ind_c2, vcov=vcovHC), coeftest(migrant_did, vcov=vcovHC), type = "text")
+stargazer(coeftest(reg_did_ind_c1, vcov=vcovHC),coeftest(reg_did_ind_c3, vcov=vcovHC), coeftest(reg_did_ind_c2, vcov=vcovHC), coeftest(reg_did_ind_c4, vcov=vcovHC), type = "text")
 
-stargazer(coeftest(reg_did_ind_c1, vcov=vcovHC),coeftest(reg_did_ind_c3, vcov=vcovHC), coeftest(reg_did_ind_c2, vcov=vcovHC), coeftest(migrant_did, vcov=vcovHC))
+stargazer(coeftest(reg_did_ind_c1, vcov=vcovHC),coeftest(reg_did_ind_c3, vcov=vcovHC), coeftest(reg_did_ind_c2, vcov=vcovHC), coeftest(reg_did_ind_c4, vcov=vcovHC))
+
+cluster_se1 <- vcovHC(reg_did_ind_c1, cluster = individuos3$id_hogar)
+
+cluster_se2 <- vcovHC(reg_did_ind_c2, cluster = individuos3$id_hogar)
+
+cluster_se3 <- vcovHC(reg_did_ind_c3, cluster = individuos3$id_hogar)
+
+cluster_se4 <- vcovHC(reg_did_ind_c4, cluster = individuos3$id_hogar)
+
+
+stargazer(coeftest(reg_did_ind_c1, vcov=cluster_se1),coeftest(reg_did_ind_c2, vcov=cluster_se2),coeftest(reg_did_ind_c3, vcov=cluster_se3), coeftest(reg_did_ind_c4, vcov=cluster_se4), type = "text")
+
 
 remove(migrant_did)
 remove(reg_did_ind_c1)
