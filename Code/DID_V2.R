@@ -863,9 +863,34 @@ fam_univ_reg3 <- lm(employment ~ policy*treat +
                       h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                       as.factor(period) + as.factor(province), data = individuos3)
 
+fam_univ_reg4 <- lm(migrant ~ policy*treat +
+                      age + sex + indigenous + afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                      h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                      as.factor(period) + as.factor(province), data = individuos3)
+
 stargazer(fam_univ_reg3, type = "text")
 
-stargazer(coeftest(fam_univ_reg1, vcov=vcovHC),coeftest(fam_univ_reg2, vcov=vcovHC),coeftest(fam_univ_reg3, vcov=vcovHC), type = "text")
+stargazer(coeftest(fam_univ_reg1, vcov=vcovHC),coeftest(fam_univ_reg2, vcov=vcovHC),coeftest(fam_univ_reg3, vcov=vcovHC), coeftest(fam_univ_reg4, vcov=vcovHC), type = "text")
+
+cluster_se1 <- vcovHC(fam_univ_reg1, cluster = individuos3$id_hogar)
+
+cluster_se2 <- vcovHC(fam_univ_reg2, cluster = individuos3$id_hogar)
+
+cluster_se3 <- vcovHC(fam_univ_reg3, cluster = individuos3$id_hogar)
+
+cluster_se4 <- vcovHC(fam_univ_reg4, cluster = individuos3$id_hogar)
+
+
+stargazer(coeftest(fam_univ_reg1, vcov=cluster_se1),coeftest(fam_univ_reg2, vcov=cluster_se2),coeftest(fam_univ_reg3, vcov=cluster_se3), coeftest(fam_univ_reg4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
+remove(fam_univ_reg1)
+remove(fam_univ_reg2)
+remove(fam_univ_reg3)
+remove(fam_univ_reg4)
 
 
 #################### Parallel Trend Assumption  ###############################
@@ -901,6 +926,7 @@ PTA2_reg4 <- lm(migrant ~ policy*treat +
 
 
 stargazer(coeftest(PTA2_reg1, vcov=vcovHC),coeftest(PTA2_reg2, vcov=vcovHC),coeftest(PTA2_reg3, vcov=vcovHC),coeftest(PTA2_reg4, vcov=vcovHC), type = "text")
+
 
 remove(PTA2)
 remove(PTA2_reg1)
