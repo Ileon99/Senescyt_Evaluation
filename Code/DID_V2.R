@@ -205,14 +205,21 @@ did_mujeres3 <- lm(employment ~ policy*treat_group +
                      h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                      as.factor(period) + as.factor(province), data = mujeres)
 
+did_mujeres4 <- lm(migrant ~ policy*treat_group +
+                     age + indigenous + afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                     h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                     as.factor(period) + as.factor(province),
+                   data = mujeres)
 
-stargazer(coeftest(did_mujeres1, vcov=vcovHC) ,coeftest(did_mujeres3, vcov=vcovHC), coeftest(did_mujeres2, vcov=vcovHC), type = "text")
+
+stargazer(coeftest(did_mujeres1, vcov=vcovHC) ,coeftest(did_mujeres3, vcov=vcovHC), coeftest(did_mujeres2, vcov=vcovHC), coeftest(did_mujeres4, vcov=vcovHC), type = "text")
 
 
 remove(mujeres)
 remove(did_mujeres1)
 remove(did_mujeres2)
 remove(did_mujeres3)
+remove(did_mujeres4)
 
 #men
 
@@ -234,13 +241,20 @@ did_hombres3 <- lm(employment ~ policy*treat_group +
                      h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                      as.factor(period) + as.factor(province), data = hombres)
 
+did_hombres4 <- lm(migrant ~ policy*treat_group +
+                     age + indigenous + afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                     h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                     as.factor(period) + as.factor(province),
+                     data = hombres)
 
-stargazer(coeftest(did_hombres1, vcov=vcovHC),coeftest(did_hombres3, vcov=vcovHC),coeftest(did_hombres2, vcov=vcovHC) , type = "text")
+
+stargazer(coeftest(did_hombres1, vcov=vcovHC),coeftest(did_hombres3, vcov=vcovHC),coeftest(did_hombres2, vcov=vcovHC), coeftest(did_hombres4, vcov=vcovHC) , type = "text")
 
 remove(hombres)
 remove(did_hombres1)
 remove(did_hombres2)
 remove(did_hombres3)
+remove(did_hombres4)
 
 #rural/urban
 
@@ -261,13 +275,20 @@ did_rural3 <- lm(employment ~ policy*treat_group +
                    h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                    as.factor(period) + as.factor(province), data = rural)
 
+did_rural4 <- lm(migrant ~ policy*treat_group +
+                   age + sex + indigenous + afro  + formal_per_house + h_tot_labour_income_pc +
+                   h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                   as.factor(period) + as.factor(province),
+                 data = rural)
 
-stargazer(coeftest(did_rural1, vcov=vcovHC),coeftest(did_rural3, vcov=vcovHC),coeftest(did_rural2, vcov=vcovHC), type = "text")
+
+stargazer(coeftest(did_rural1, vcov=vcovHC),coeftest(did_rural3, vcov=vcovHC),coeftest(did_rural2, vcov=vcovHC), coeftest(did_rural4, vcov=vcovHC), type = "text")
 
 remove(rural)
 remove(did_rural1)
 remove(did_rural2)
 remove(did_rural3)
+remove(did_rural4)
 
 
 urban <- individuos[individuos$rural == 0,]
@@ -287,40 +308,53 @@ did_urban3 <- lm(employment ~ policy*treat_group +
                    h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                    as.factor(period) + as.factor(province), data = urban)
 
+did_urban4 <- lm(migrant ~ policy*treat_group +
+                   age + sex + indigenous + afro   + formal_per_house + h_tot_labour_income_pc +
+                   h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                   as.factor(period) + as.factor(province),
+                   data = urban)
 
-stargazer(coeftest(did_urban1, vcov=vcovHC),coeftest(did_urban3, vcov=vcovHC),coeftest(did_urban2, vcov=vcovHC), type = "text")
+stargazer(coeftest(did_urban1, vcov=vcovHC),coeftest(did_urban3, vcov=vcovHC),coeftest(did_urban2, vcov=vcovHC),coeftest(did_urban4, vcov=vcovHC), type = "text")
 
 remove(urban)
 remove(did_urban1)
 remove(did_urban2)
 remove(did_urban3)
+remove(did_urban4)
 
 #Indígenas 
 
 indigenas <- individuos[individuos$indigenous == 1,]
 
 did_indigenas1 <- lm(university ~ policy*treat_group +
-                       age + sex + indigenous + afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                       age + sex + afro + rural  + formal_per_house + h_tot_labour_income_pc +
                        h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                        as.factor(period) + as.factor(province), data = indigenas)
 
 did_indigenas2 <- lm(informal ~ policy*treat_group +
-                       age + sex + indigenous + afro + rural  + lformal_per_house + h_tot_labour_income_pc +
+                       age + sex  + afro + rural  + lformal_per_house + h_tot_labour_income_pc +
                        h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                        as.factor(period) + as.factor(province), data = indigenas)
 
 did_indigenas3 <- lm(employment ~ policy*treat_group +
-                       age + sex + indigenous + afro + rural  + lformal_per_house + h_tot_labour_income_pc +
+                       age + sex +  afro + rural  + lformal_per_house + h_tot_labour_income_pc +
                        h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                        as.factor(period) + as.factor(province), data = indigenas)
 
+did_indigenas4 <- lm(migrant ~ policy*treat_group +
+                       age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                       h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                       as.factor(period) + as.factor(province),
+                      data = indigenas)
 
-stargazer(coeftest(did_indigenas1, vcov=vcovHC),coeftest(did_indigenas3, vcov=vcovHC),coeftest(did_indigenas2, vcov=vcovHC), type = "text")
+
+stargazer(coeftest(did_indigenas1, vcov=vcovHC),coeftest(did_indigenas3, vcov=vcovHC),coeftest(did_indigenas2, vcov=vcovHC), coeftest(did_indigenas4, vcov=vcovHC), type = "text")
 
 remove(indigenas)
 remove(did_indigenas1)
 remove(did_indigenas2)
 remove(did_indigenas3)
+remove(did_indigenas4)
 
 
 #########################Regrssion on different quintiles ######################
@@ -347,10 +381,14 @@ did_q13 <- lm(employment ~ policy*treat_group +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province), data = Q1)
 
+did_q14 <- lm(migrant ~ policy*treat_group +
+                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province),
+              data = Q1)
 
-stargazer(coeftest(did_q11, vcov=vcovHC),coeftest(did_q13, vcov=vcovHC),coeftest(did_q12, vcov=vcovHC), type = "text")
 
-
+stargazer(coeftest(did_q11, vcov=vcovHC),coeftest(did_q13, vcov=vcovHC),coeftest(did_q12, vcov=vcovHC), coeftest(did_q14, vcov=vcovHC), type = "text")
 
 #Q2
 
@@ -373,8 +411,14 @@ did_q23 <- lm(employment ~ policy*treat_group +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province), data = Q2)
 
+did_q24 <- lm(migrant ~ policy*treat_group +
+                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province),
+              data = Q2)
 
-stargazer(coeftest(did_q21, vcov=vcovHC),coeftest(did_q23, vcov=vcovHC),coeftest(did_q22, vcov=vcovHC), type = "text")
+
+stargazer(coeftest(did_q21, vcov=vcovHC),coeftest(did_q23, vcov=vcovHC),coeftest(did_q22, vcov=vcovHC),coeftest(did_q24, vcov=vcovHC),  type = "text")
 
 table(Q2$policy*Q2$treat_group)
 
@@ -388,18 +432,27 @@ summary(Q3$h_tot_labour_income_pc)
 
 did_q31 <- lm(university ~ policy*treat_group +
                 age + sex + indigenous + afro + rural  + formal_per_house  +
-                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y , data = Q3)
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province), data = Q3)
 
 did_q32 <- lm(informal ~ policy*treat_group +
                 age + sex + indigenous + afro + rural  + formal_per_house +
-                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y , data = Q3)
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province), data = Q3)
 
 did_q33 <- lm(employment ~ policy*treat_group +
                 age + sex + indigenous + afro + rural  + formal_per_house +
-                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y , data = Q3)
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province), data = Q3)
+
+did_q34 <- lm(migrant ~ policy*treat_group +
+                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province),
+              data = Q3)
 
 
-stargazer(coeftest(did_q31, vcov=vcovHC),coeftest(did_q33, vcov=vcovHC),coeftest(did_q32, vcov=vcovHC), type = "text")
+stargazer(coeftest(did_q31, vcov=vcovHC),coeftest(did_q33, vcov=vcovHC),coeftest(did_q32, vcov=vcovHC), coeftest(did_q34, vcov=vcovHC), type = "text")
 
 table(Q3$policy*Q3$treat_group)
 
@@ -424,8 +477,14 @@ did_Q43 <- lm(employment ~ policy*treat_group +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province), data = Q4)
 
+did_Q44 <- lm(migrant ~ policy*treat_group +
+                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province),
+              data = Q4)
 
-stargazer(coeftest(did_Q41, vcov=vcovHC),coeftest(did_Q43, vcov=vcovHC),coeftest(did_Q42, vcov=vcovHC), type = "text")
+
+stargazer(coeftest(did_Q41, vcov=vcovHC),coeftest(did_Q43, vcov=vcovHC),coeftest(did_Q42, vcov=vcovHC), coeftest(did_Q44, vcov=vcovHC), type = "text")
 
 table(Q4$policy*Q4$treat_group)
 
@@ -450,8 +509,13 @@ did_Q53 <- lm(employment ~ policy*treat_group +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province), data = Q5)
 
+did_Q54 <- lm(migrant ~ policy*treat_group +
+                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
+                as.factor(period) + as.factor(province),
+              data = Q5)
 
-stargazer(coeftest(did_Q51, vcov=vcovHC),coeftest(did_Q53, vcov=vcovHC),coeftest(did_Q52, vcov=vcovHC), type = "text")
+stargazer(coeftest(did_Q51, vcov=vcovHC),coeftest(did_Q53, vcov=vcovHC),coeftest(did_Q52, vcov=vcovHC),coeftest(did_Q54, vcov=vcovHC), type = "text")
 
 table(Q5$policy*Q5$treat_group)
 
@@ -476,6 +540,11 @@ remove(did_q21)
 remove(did_q11)
 remove(did_q12)
 remove(did_q13)
+remove(did_Q54)
+remove(did_Q44)
+remove(did_q34)
+remove(did_q24)
+remove(did_q14)
 
 
 ##################### Quintil regression without controls ####################
