@@ -187,12 +187,14 @@ cluster_se4 <- vcovHC(reg_did_ind_c4, cluster = individuos3$id_hogar)
 stargazer(coeftest(reg_did_ind_c1, vcov=cluster_se1),coeftest(reg_did_ind_c2, vcov=cluster_se2),coeftest(reg_did_ind_c3, vcov=cluster_se3), coeftest(reg_did_ind_c4, vcov=cluster_se4), type = "text")
 
 
-remove(migrant_did)
 remove(reg_did_ind_c1)
 remove(reg_did_ind_c2)
 remove(reg_did_ind_c3)
 remove(reg_did_ind_c4)
-
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
 
 ############################## Sub population models ##########################
 
@@ -424,7 +426,7 @@ did_q23 <- lm(employment ~ policy*treat_group +
                 as.factor(period) + as.factor(province), data = Q2)
 
 did_q24 <- lm(migrant ~ policy*treat_group +
-                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                age + sex +  afro + rural  + formal_per_house +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province),
               data = Q2)
@@ -458,7 +460,7 @@ did_q33 <- lm(employment ~ policy*treat_group +
                 as.factor(period) + as.factor(province), data = Q3)
 
 did_q34 <- lm(migrant ~ policy*treat_group +
-                age + sex +  afro + rural  + formal_per_house + h_tot_labour_income_pc +
+                age + sex +  afro + rural  + formal_per_house  +
                 h_little_kids + h_kid + h_teen + h_adult + nhousehold.y +
                 as.factor(period) + as.factor(province),
               data = Q3)
@@ -846,9 +848,14 @@ individuos4$lnhousehold.y <- ifelse(individuos4$nhousehold.y < 1, 0 ,log(individ
 
 table(individuos3$treat)
 
+
 remove(Enemdu)
 remove(treatment_group)
 remove(univ_family)
+
+
+
+table(individuos3$policy, individuos3$treat)
 
 # DID
 
