@@ -184,17 +184,18 @@ cluster_se3 <- vcovHC(reg_did_ind_c3, cluster = individuos3$id_hogar)
 cluster_se4 <- vcovHC(reg_did_ind_c4, cluster = individuos3$id_hogar)
 
 
-stargazer(coeftest(reg_did_ind_c1, vcov=cluster_se1),coeftest(reg_did_ind_c2, vcov=cluster_se2),coeftest(reg_did_ind_c3, vcov=cluster_se3), coeftest(reg_did_ind_c4, vcov=cluster_se4), type = "text")
+stargazer(coeftest(reg_did_ind_c1, vcov=cluster_se1),coeftest(reg_did_ind_c3, vcov=cluster_se3),coeftest(reg_did_ind_c2, vcov=cluster_se2), coeftest(reg_did_ind_c4, vcov=cluster_se4), type = "text")
 
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
 
 remove(reg_did_ind_c1)
 remove(reg_did_ind_c2)
 remove(reg_did_ind_c3)
 remove(reg_did_ind_c4)
-remove(cluster_se1)
-remove(cluster_se2)
-remove(cluster_se3)
-remove(cluster_se4)
+
 
 ############################## Sub population models ##########################
 
@@ -227,6 +228,22 @@ did_mujeres4 <- lm(migrant ~ policy*treat_group +
 
 
 stargazer(coeftest(did_mujeres1, vcov=vcovHC) ,coeftest(did_mujeres3, vcov=vcovHC), coeftest(did_mujeres2, vcov=vcovHC), coeftest(did_mujeres4, vcov=vcovHC), type = "text")
+
+cluster_se1 <- vcovHC(did_mujeres1, cluster = mujeres$id_hogar)
+
+cluster_se2 <- vcovHC(did_mujeres2, cluster = mujeres$id_hogar)
+
+cluster_se3 <- vcovHC(did_mujeres3, cluster = mujeres$id_hogar)
+
+cluster_se4 <- vcovHC(did_mujeres4, cluster = mujeres$id_hogar)
+
+
+stargazer(coeftest(did_mujeres1, vcov=cluster_se1),coeftest(did_mujeres3, vcov=cluster_se3),coeftest(did_mujeres2, vcov=cluster_se2), coeftest(did_mujeres4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
 
 
 remove(mujeres)
@@ -264,6 +281,23 @@ did_hombres4 <- lm(migrant ~ policy*treat_group +
 
 stargazer(coeftest(did_hombres1, vcov=vcovHC),coeftest(did_hombres3, vcov=vcovHC),coeftest(did_hombres2, vcov=vcovHC), coeftest(did_hombres4, vcov=vcovHC) , type = "text")
 
+
+cluster_se1 <- vcovHC(did_hombres1, cluster = hombres$id_hogar)
+
+cluster_se2 <- vcovHC(did_hombres2, cluster = hombres$id_hogar)
+
+cluster_se3 <- vcovHC(did_hombres3, cluster = hombres$id_hogar)
+
+cluster_se4 <- vcovHC(did_hombres4, cluster = hombres$id_hogar)
+
+
+stargazer(coeftest(did_hombres1, vcov=cluster_se1),coeftest(did_hombres3, vcov=cluster_se3),coeftest(did_hombres2, vcov=cluster_se2), coeftest(did_hombres4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
+
 remove(hombres)
 remove(did_hombres1)
 remove(did_hombres2)
@@ -298,6 +332,22 @@ did_rural4 <- lm(migrant ~ policy*treat_group +
 
 stargazer(coeftest(did_rural1, vcov=vcovHC),coeftest(did_rural3, vcov=vcovHC),coeftest(did_rural2, vcov=vcovHC), coeftest(did_rural4, vcov=vcovHC), type = "text")
 
+cluster_se1 <- vcovHC(did_rural1, cluster = rural$id_hogar)
+
+cluster_se2 <- vcovHC(did_rural2, cluster = rural$id_hogar)
+
+cluster_se3 <- vcovHC(did_rural3, cluster = rural$id_hogar)
+
+cluster_se4 <- vcovHC(did_rural4, cluster = rural$id_hogar)
+
+
+stargazer(coeftest(did_rural1, vcov=cluster_se1),coeftest(did_rural3, vcov=cluster_se3),coeftest(did_rural2, vcov=cluster_se2), coeftest(did_rural4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
+
 remove(rural)
 remove(did_rural1)
 remove(did_rural2)
@@ -329,6 +379,22 @@ did_urban4 <- lm(migrant ~ policy*treat_group +
                    data = urban)
 
 stargazer(coeftest(did_urban1, vcov=vcovHC),coeftest(did_urban3, vcov=vcovHC),coeftest(did_urban2, vcov=vcovHC),coeftest(did_urban4, vcov=vcovHC), type = "text")
+
+cluster_se1 <- vcovHC(did_urban1, cluster = urban$id_hogar)
+
+cluster_se2 <- vcovHC(did_urban2, cluster = urban$id_hogar)
+
+cluster_se3 <- vcovHC(did_urban3, cluster = urban$id_hogar)
+
+cluster_se4 <- vcovHC(did_urban4, cluster = urban$id_hogar)
+
+
+stargazer(coeftest(did_urban1, vcov=cluster_se1),coeftest(did_urban3, vcov=cluster_se3),coeftest(did_urban2, vcov=cluster_se2), coeftest(did_urban4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
 
 remove(urban)
 remove(did_urban1)
@@ -363,6 +429,23 @@ did_indigenas4 <- lm(migrant ~ policy*treat_group +
 
 
 stargazer(coeftest(did_indigenas1, vcov=vcovHC),coeftest(did_indigenas3, vcov=vcovHC),coeftest(did_indigenas2, vcov=vcovHC), coeftest(did_indigenas4, vcov=vcovHC), type = "text")
+
+cluster_se1 <- vcovHC(did_indigenas1, cluster = indigenas$id_hogar)
+
+cluster_se2 <- vcovHC(did_indigenas2, cluster = indigenas$id_hogar)
+
+cluster_se3 <- vcovHC(did_indigenas3, cluster = indigenas$id_hogar)
+
+cluster_se4 <- vcovHC(did_indigenas4, cluster = indigenas$id_hogar)
+
+
+stargazer(coeftest(did_indigenas1, vcov=cluster_se1),coeftest(did_indigenas3, vcov=cluster_se3),coeftest(did_indigenas2, vcov=cluster_se2), coeftest(did_indigenas4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
+
 
 remove(indigenas)
 remove(did_indigenas1)
@@ -403,6 +486,23 @@ did_q14 <- lm(migrant ~ policy*treat_group +
 
 
 stargazer(coeftest(did_q11, vcov=vcovHC),coeftest(did_q13, vcov=vcovHC),coeftest(did_q12, vcov=vcovHC), coeftest(did_q14, vcov=vcovHC), type = "text")
+
+cluster_se1 <- vcovHC(did_indigenas1, cluster = indigenas$id_hogar)
+
+cluster_se2 <- vcovHC(did_indigenas2, cluster = indigenas$id_hogar)
+
+cluster_se3 <- vcovHC(did_indigenas3, cluster = indigenas$id_hogar)
+
+cluster_se4 <- vcovHC(did_indigenas4, cluster = indigenas$id_hogar)
+
+
+stargazer(coeftest(did_indigenas1, vcov=cluster_se1),coeftest(did_indigenas3, vcov=cluster_se3),coeftest(did_indigenas2, vcov=cluster_se2), coeftest(did_indigenas4, vcov=cluster_se4), type = "text")
+
+remove(cluster_se1)
+remove(cluster_se2)
+remove(cluster_se3)
+remove(cluster_se4)
+
 
 #Q2
 
