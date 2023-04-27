@@ -6,11 +6,15 @@ library(stargazer)
 library(AER)
 
 
-treatment_group <- read_csv("~/PHD/DB MINEDUC/Clean_MINEDUC/treatment_group.csv")
+treatment_group <- read_feather("C:/Users/ignac/OneDrive/Documentos/PHD/Senescyt_Evaluation/Data/treat_check.feather")
 Enemdu <- read_feather("C:/Users/ignac/OneDrive/Documentos/PHD/Senescyt_Evaluation/Data/Enemdu.feather")
 
 #Now we will focuss on doing the DiD with individuals in the cohort of treatment 
 #We will keep people that have completed high school between 17 - 19 years
+
+treatment_group <- treatment_group[, c("province","treatment_group")]
+
+names(treatment_group) <- c("province","treat_group")
 
 individuos <- Enemdu[Enemdu$cohort == "17-19",]
 individuos <- individuos[individuos$education > 6,]
@@ -50,6 +54,7 @@ individuos2$lnhousehold.y <- ifelse(individuos2$nhousehold.y < 1, 0 ,log(individ
 
 remove(Enemdu)
 remove(treatment_group)
+
 
 ############################# Descriptive Statistics ##########################
 
@@ -925,7 +930,6 @@ remove(PTA_reg4)
 
 #Let's change the treatment group for those families where there in the family no one went to univerisity
 
-treatment_group <- read_csv("~/PHD/DB MINEDUC/Clean_MINEDUC/treatment_group.csv")
 Enemdu <- read_feather("C:/Users/ignac/OneDrive/Documentos/PHD/Senescyt_Evaluation/Data/Enemdu.feather")
 
 #Dummy equal to one if there is a person with univserisity in the family
@@ -981,10 +985,6 @@ individuos3$treat <- individuos3$treat - individuos3$univ_family
 individuos4$treat <- rep(1, length(individuos4$univ_family))
 individuos4$treat <- individuos4$treat - individuos4$univ_family
 
-
-individuos3 <- merge(individuos3, treatment_group, by = "province")
-individuos4 <- merge(individuos4, treatment_group, by = "province")
-
 individuos3$policy <- rep(0, length(individuos3$period))
 individuos3$policy[individuos3$period > 2011]=1
 
@@ -1007,12 +1007,10 @@ table(individuos3$treat)
 
 
 remove(Enemdu)
-remove(treatment_group)
 remove(univ_family)
+remove(treatment_group)
 
 
-
-table(individuos3$policy, individuos3$treat)
 
 # DID
 
@@ -1629,6 +1627,3 @@ remove(PTA2_reg1)
 remove(PTA2_reg2)
 remove(PTA2_reg3)
 remove(PTA2_reg4)
-remove(fam_univ_reg1)
-remove(fam_univ_reg2)
-remove(fam_univ_reg3)
