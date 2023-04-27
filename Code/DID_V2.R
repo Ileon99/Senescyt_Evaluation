@@ -1627,3 +1627,11 @@ remove(PTA2_reg1)
 remove(PTA2_reg2)
 remove(PTA2_reg3)
 remove(PTA2_reg4)
+
+write_feather(individuos, "individuos_did.feather")
+write_feather(individuos2, "individuos_PTA.feather")
+write_feather(individuos3, "individuos_fam.feather")
+write_feather(individuos4, "individuos_fam_PTA.feather")
+
+
+remove(individuos, individuos2, individuos3, individuos4)
