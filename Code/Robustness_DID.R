@@ -1119,7 +1119,7 @@ cluster_se4 <- vcovHC(did_spt4, cluster = spt$id_hogar)
 
 stargazer(coeftest(did_spt1, vcov=cluster_se1),coeftest(did_spt3, vcov=cluster_se3),coeftest(did_spt2, vcov=cluster_se2), coeftest(did_spt4, vcov=cluster_se4), type = "text")
 
-#Not significant effects : prvinces that were in he control are now treated
+#Not significant effects : provinces that were in he control are now treated
 
 remove(cluster_se1)
 remove(cluster_se2)
@@ -1132,3 +1132,4 @@ remove(did_spt1)
 remove(did_spt2)
 remove(did_spt3)
 remove(did_spt4)
+
