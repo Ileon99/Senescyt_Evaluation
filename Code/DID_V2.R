@@ -55,6 +55,7 @@ individuos2$lnhousehold.y <- ifelse(individuos2$nhousehold.y < 1, 0 ,log(individ
 remove(Enemdu)
 remove(treatment_group)
 
+table(individuos$treat_group, individuos$province )
 
 ############################# Descriptive Statistics ##########################
 
