@@ -28,7 +28,7 @@ individuos <- merge(individuos, treatment_group, by = "province")
 individuos$province_var <- individuos$treat_group
 
 individuos$treat_group <- rep(0, length(individuos$province))
-individuos$treat_group[individuos$cohort == "20-22"]=1
+individuos$treat_group[individuos$cohort == "17-19"]=1
 
 
 individuos$lformal_per_house <- ifelse(individuos$formal_per_house < 1, 0 ,log(individuos$formal_per_house))

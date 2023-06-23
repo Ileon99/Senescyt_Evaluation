@@ -4,8 +4,23 @@ Enemdu <- read_feather("C:/Users/ignac/OneDrive/Documentos/PHD/Senescyt_Evaluati
 
 universidades <- read_csv2("Data/universidades.csv")
 
+#We eliminate from the data set 4 universities created after 2010
+
+#UNIVERSIDAD NACIONAL DE EDUCACIÓN
+#UNIVERSIDAD REGIONAL AMAZÓNICA IKIAM
+#UNIVERSIDAD DE LAS ARTES (UARTES)
+#UNIVERSIAD YACHAY TECH
+
+universidades <- universidades[universidades$`NOMBRE IES` != "UNIVERSIDAD NACIONAL DE EDUCACIÓN",]
+universidades <- universidades[universidades$`NOMBRE IES` != "UNIVERSIDAD REGIONAL AMAZÓNICA IKIAM",]
+universidades <- universidades[universidades$`NOMBRE IES` != "UNIVERSIDAD DE LAS ARTES (UARTES)",]
+universidades <- universidades[universidades$`NOMBRE IES` != "UNIVERSIAD YACHAY TECH",]
+
+table(universidades$`ESTRUCTURA INSTITUCIONAL`, universidades$`TIPO FINANCIAMIENTO`)
+
 universidades$publica <- rep(0, length(universidades$`CÓDIGO IES`))
-universidades$publica[universidades$`TIPO FINANCIAMIENTO` == "PÚBLICA"]=1
+universidades$publica[universidades$`TIPO FINANCIAMIENTO` == "PÚBLICA" & universidades$`ESTRUCTURA INSTITUCIONAL` == "SEDE"
+                      | universidades$`TIPO FINANCIAMIENTO` == "PÚBLICA" & universidades$`ESTRUCTURA INSTITUCIONAL` == "SEDE MATRIZ" ]=1
 
 prov_univ <- universidades %>%
   group_by(PROVINCIA) %>%
@@ -14,18 +29,21 @@ prov_univ <- universidades %>%
   ungroup()
 
 
+ciudad_univ <- universidades %>%
+  group_by(CANTÓN) %>%
+  summarise_at(vars(publica),
+               sum) %>%
+  ungroup()
+
+table(Enemdu$indigenous, Enemdu$province)
+
+
+
 #We leave NA because in the whole database it represents universidad particular de loja that is a private university
 
 prov_univ <- na.omit(prov_univ)
 
-#Compute the number of public universities mean
-
-mean_n_univ <- mean(prov_univ$publica)
-
-prov_univ$less_univ <- rep(0, length(prov_univ$publica))
-prov_univ$less_univ[prov_univ$publica <= 2]=1
-
-names(prov_univ) <- c("province", "publica", "treat")
+names(prov_univ) <- c("province", "publica")
 
 prov_univ <- prov_univ[, province = stri_trans_general(str = province, 
                                                        id = "Latin-ASCII")]
@@ -33,6 +51,8 @@ prov_univ <- prov_univ[, province = stri_trans_general(str = province,
 prov_univ$province <- gsub("í", "I", prov_univ$province, ignore.case = TRUE)
 
 prov_univ$province <- gsub("á", "A", prov_univ$province, ignore.case = TRUE)
+
+write_feather(prov_univ,"prov_univ.feather")
 
 Enemdu <- merge(Enemdu, prov_univ, by = "province")
 
